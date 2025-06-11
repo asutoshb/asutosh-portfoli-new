@@ -41,9 +41,9 @@ const Projects = () => {
                   </div>
                   
                   <div className="flex gap-3">
-                    {project.github && (
+                    {project.githubUrl && (
                       <a
-                        href={project.github}
+                        href={project.githubUrl}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-blue-600 hover:text-blue-800 transition-colors"
@@ -51,9 +51,9 @@ const Projects = () => {
                         GitHub
                       </a>
                     )}
-                    {project.demo && (
+                    {project.liveUrl && (
                       <a
-                        href={project.demo}
+                        href={project.liveUrl}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-blue-600 hover:text-blue-800 transition-colors"
