@@ -1,5 +1,4 @@
 
-import { ExternalLink, Github } from "lucide-react";
 import { projects } from "../data/portfolioData";
 
 const Projects = () => {
@@ -8,35 +7,25 @@ const Projects = () => {
       <div className="container mx-auto px-6">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-4">
-            Featured Projects
+            Projects
           </h2>
           <div className="w-20 h-1 bg-blue-600 mx-auto mb-12"></div>
           
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {projects.map((project) => (
               <div
                 key={project.id}
-                className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+                className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300"
               >
-                <div className="h-48 bg-gradient-to-br from-blue-100 to-indigo-100 relative overflow-hidden">
-                  <img
-                    src={project.imageUrl}
-                    alt={project.title}
-                    className="w-full h-full object-cover"
-                  />
-                  {project.featured && (
-                    <span className="absolute top-4 left-4 bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-medium">
-                      Featured
-                    </span>
-                  )}
+                <div className="h-48 bg-gradient-to-br from-blue-100 to-indigo-100 flex items-center justify-center">
+                  <div className="text-4xl text-blue-600">🚀</div>
                 </div>
                 
                 <div className="p-6">
                   <h3 className="text-xl font-bold text-gray-900 mb-2">
                     {project.title}
                   </h3>
-                  
-                  <p className="text-gray-600 mb-4 leading-relaxed">
+                  <p className="text-gray-600 mb-4">
                     {project.description}
                   </p>
                   
@@ -44,7 +33,7 @@ const Projects = () => {
                     {project.technologies.map((tech, index) => (
                       <span
                         key={index}
-                        className="px-2 py-1 bg-gray-100 text-gray-700 rounded text-sm font-medium"
+                        className="px-2 py-1 bg-gray-100 text-gray-700 rounded text-sm"
                       >
                         {tech}
                       </span>
@@ -52,26 +41,24 @@ const Projects = () => {
                   </div>
                   
                   <div className="flex gap-3">
-                    {project.liveUrl && (
+                    {project.github && (
                       <a
-                        href={project.liveUrl}
+                        href={project.github}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium text-sm"
+                        className="text-blue-600 hover:text-blue-800 transition-colors"
                       >
-                        <ExternalLink className="w-4 h-4" />
-                        Live Demo
+                        GitHub
                       </a>
                     )}
-                    {project.githubUrl && (
+                    {project.demo && (
                       <a
-                        href={project.githubUrl}
+                        href={project.demo}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-2 px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors font-medium text-sm"
+                        className="text-blue-600 hover:text-blue-800 transition-colors"
                       >
-                        <Github className="w-4 h-4" />
-                        Code
+                        Live Demo
                       </a>
                     )}
                   </div>

@@ -13,8 +13,11 @@ import { trackPageView } from "../lib/firebase";
 import { useViewTracking } from "../hooks/useViewTracking";
 
 const Index = () => {
+  console.log('Index component rendering');
+
   // Track page view on component mount
   useEffect(() => {
+    console.log('Index component mounted, tracking page view');
     trackPageView("Portfolio Home");
   }, []);
 
