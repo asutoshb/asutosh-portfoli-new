@@ -14,42 +14,73 @@ const firebaseConfig = {
   measurementId: "G-XXXXXXXXXX"
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
+// Check if Firebase config is properly set up
+const isFirebaseConfigured = firebaseConfig.apiKey !== "your-api-key" && 
+                            firebaseConfig.projectId !== "your-project-id";
 
-// Initialize Analytics
+let app;
 let analytics: Analytics | null = null;
-if (typeof window !== 'undefined') {
-  analytics = getAnalytics(app);
+let db;
+
+if (isFirebaseConfigured) {
+  try {
+    // Initialize Firebase
+    app = initializeApp(firebaseConfig);
+
+    // Initialize Analytics
+    if (typeof window !== 'undefined') {
+      analytics = getAnalytics(app);
+    }
+
+    // Initialize Firestore
+    db = getFirestore(app);
+  } catch (error) {
+    console.warn('Firebase initialization failed:', error);
+  }
 }
 
-// Initialize Firestore
-export const db = getFirestore(app);
-
-// Analytics functions
+// Analytics functions with fallbacks
 export const trackPageView = (pageName: string) => {
-  if (analytics) {
-    logEvent(analytics, 'page_view', {
-      page_title: pageName,
-      page_location: window.location.href,
-    });
+  if (analytics && isFirebaseConfigured) {
+    try {
+      logEvent(analytics, 'page_view', {
+        page_title: pageName,
+        page_location: window.location.href,
+      });
+    } catch (error) {
+      console.warn('Failed to track page view:', error);
+    }
+  } else {
+    console.log('Page view tracked (local):', pageName);
   }
 };
 
 export const trackSectionView = (sectionName: string) => {
-  if (analytics) {
-    logEvent(analytics, 'section_view', {
-      section_name: sectionName,
-    });
+  if (analytics && isFirebaseConfigured) {
+    try {
+      logEvent(analytics, 'section_view', {
+        section_name: sectionName,
+      });
+    } catch (error) {
+      console.warn('Failed to track section view:', error);
+    }
+  } else {
+    console.log('Section view tracked (local):', sectionName);
   }
 };
 
 export const trackContactClick = (contactMethod: string) => {
-  if (analytics) {
-    logEvent(analytics, 'contact_click', {
-      contact_method: contactMethod,
-    });
+  if (analytics && isFirebaseConfigured) {
+    try {
+      logEvent(analytics, 'contact_click', {
+        contact_method: contactMethod,
+      });
+    } catch (error) {
+      console.warn('Failed to track contact click:', error);
+    }
+  } else {
+    console.log('Contact click tracked (local):', contactMethod);
   }
 };
 
-export { analytics };
+export { analytics, db };
